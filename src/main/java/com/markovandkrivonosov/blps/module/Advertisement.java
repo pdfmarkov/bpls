@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -108,8 +109,9 @@ public class Advertisement {
     private City city;
 
     @NotNull
+    @Pattern(regexp="(^$|[0-9]{10})")
     @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
     @Column(name = "allow_questions")
     private Boolean allowQuestions;
