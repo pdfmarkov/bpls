@@ -61,6 +61,8 @@ INSERT INTO city(name, region_id) VALUES ('Владивосток', 1);
 INSERT INTO city(name, region_id) VALUES ('Артём', 1);
 INSERT INTO city(name, region_id) VALUES ('Находка', 1);
 INSERT INTO city(name, region_id) VALUES ('Уссурийск', 1);
+INSERT INTO city(name, region_id) VALUES ('Москва', 2);
+INSERT INTO city(name, region_id) VALUES ('Санкт-Петербург', 3);
 INSERT INTO city(name, region_id) VALUES ('Комсомольск-на-Амуре', 4);
 INSERT INTO city(name, region_id) VALUES ('Хабаровск', 4);
 INSERT INTO city(name, region_id) VALUES ('Оренбург', 5);
