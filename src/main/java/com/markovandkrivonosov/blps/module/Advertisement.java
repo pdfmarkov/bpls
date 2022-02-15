@@ -1,6 +1,9 @@
 package com.markovandkrivonosov.blps.module;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -12,6 +15,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Advertisement {
 
     @Id
@@ -21,6 +25,7 @@ public class Advertisement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 
 //    Example: WAUZZZ44ZEN096063
@@ -39,11 +44,13 @@ public class Advertisement {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Brand brand;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "model_id", referencedColumnName = "id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Model model;
 
     @NotNull
@@ -101,11 +108,13 @@ public class Advertisement {
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "region_id", referencedColumnName = "id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private Region region;
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id", referencedColumnName = "id")
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
     private City city;
 
     @NotNull
@@ -123,4 +132,18 @@ public class Advertisement {
     @Column(name = "image")
     private byte[] image;
 
+    public Advertisement(String vin, Brand brand, Model model, Integer mileage, Boolean isRight, Body body, Integer releaseYear, Integer price, Status status, Region region, City city, String phone) {
+        this.vin = vin;
+        this.brand = brand;
+        this.model = model;
+        this.mileage = mileage;
+        this.isRight = isRight;
+        this.body = body;
+        this.releaseYear = releaseYear;
+        this.price = price;
+        this.status = status;
+        this.region = region;
+        this.city = city;
+        this.phone = phone;
+    }
 }
