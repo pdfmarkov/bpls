@@ -7,8 +7,10 @@ import com.markovandkrivonosov.blps.exceptions.TokenRefreshException;
 import com.markovandkrivonosov.blps.module.responses.ErrorMessageDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,6 +44,21 @@ public class ControllerExceptionHandler {
                 ex.getMessage(),
                 request.getDescription(false));
         LOGGER.warn("This resource is not valid: {}", message);
+        return message;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
+    public ErrorMessageDto methodArgumentIsNotValid(MethodArgumentNotValidException ex, WebRequest request) {
+        ErrorMessageDto message = new ErrorMessageDto(
+                HttpStatus.NOT_ACCEPTABLE.value(),
+                new Date(),
+                ex.getBindingResult().getFieldErrors().stream()
+                        .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                        .findFirst()
+                        .orElse(ex.getMessage()),
+                request.getDescription(false));
+        LOGGER.warn("This method argument is not valid: {}", message);
         return message;
     }
 

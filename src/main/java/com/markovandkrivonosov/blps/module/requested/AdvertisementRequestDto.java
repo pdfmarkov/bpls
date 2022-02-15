@@ -11,42 +11,42 @@ import java.io.Serializable;
 
 @Data
 public class AdvertisementRequestDto implements Serializable {
-    @NotBlank
-    @Size(min = 17, max = 17)
+    @NotBlank(message = "VIN не должен быть пустым!")
+    @Size(min = 17, max = 17, message = "VIN должен состоять из 17 символов!")
     private final String vin;
-    @Size(min = 10, max = 10, message = "СТС состоит из 10 символов!")
+    @Size(min = 10, max = 10, message = "СТС должен состоять из 10 символов!")
     private final String sts;
     private final String stateNumber;
-    @NotNull
+    @NotBlank(message = "Brand не должен быть пустым!")
     private final String brandName;
-    @NotNull
+    @NotBlank(message = "Model не должен быть пустым!")
     private final String modelName;
-    @NotNull
+    @NotNull(message = "Mileage не должен быть пустым!")
     private final Integer mileage;
-    @NotNull
+    @NotNull(message = "isRight не должен быть пустым!")
     private final Boolean isRight;
-    @NotNull
+    @NotNull(message = "Body не должен быть пустым!")
     private final Body body;
-    @NotNull
+    @NotNull(message = "ReleaseYear не должен быть пустым!")
     private final Integer releaseYear;
-    private final String driveUnit;
+    private final DriveUnit driveUnit;
     private final Fuel fuel;
     private final Boolean isAuto;
     private final Color color;
     private final Boolean hasDocuments;
     private final Boolean needsRepair;
     private final String description;
-    @NotNull
+    @NotNull(message = "Price не должен быть пустым!")
     private final Integer price;
     private final Boolean exchangePossible;
-    @NotNull
+    @NotNull(message = "Status не должен быть пустым!")
     private final Status status;
-    @NotNull
+    @NotNull(message = "Region не должен быть пустым!")
     private final String regionName;
-    @NotNull
+    @NotNull(message = "City не должен быть пустым!")
     private final String cityName;
-    @NotNull
-    @Pattern(regexp="(^$|[0-9]{10})")
+    @NotNull(message = "phone не должен быть пустым!")
+    @Pattern(regexp="(^$|[0-9]{10})", message = "Phone должен быть номером телефона!")
     private final String phone;
     private final Boolean allowQuestions;
     private final Boolean isPaid;
