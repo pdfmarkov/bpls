@@ -2,17 +2,19 @@ package com.markovandkrivonosov.blps.controllers;
 
 
 import com.markovandkrivonosov.blps.exceptions.ResourceNotFoundException;
-import com.markovandkrivonosov.blps.module.Advertisement;
-import com.markovandkrivonosov.blps.module.User;
+import com.markovandkrivonosov.blps.module.*;
 import com.markovandkrivonosov.blps.module.requested.AdvertisementRequestDto;
 import com.markovandkrivonosov.blps.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "${cors.urls}")
@@ -38,19 +40,9 @@ public class AdvertisementController {
     @Autowired
     AdvertisementService advertisementService;
 
-    @GetMapping("/get")
-    public ResponseEntity<?> getAllAdvertisements() {
-
-        return ResponseEntity.ok(advertisementService.findAllAdvertisements());
-
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<?> searchAdvertisements() {
-
-        // TODO: Сделать поиск
-
-        return ResponseEntity.ok(advertisementService.findAllAdvertisements());
+    @GetMapping(value = "/get")
+    public ResponseEntity<?> searchAllAdvertisements(@RequestParam Map<String,String> values) {
+        return ResponseEntity.ok(advertisementService.findAllAdvertisementsBySpecification(values));
     }
 
     @PutMapping("/add")
