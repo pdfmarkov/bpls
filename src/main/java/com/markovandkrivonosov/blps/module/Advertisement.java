@@ -16,6 +16,10 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "advertisement",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "vin")
+        })
 public class Advertisement {
 
     @Id
@@ -23,12 +27,15 @@ public class Advertisement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
 
-//    Example: WAUZZZ44ZEN096063
+    @Column(name = "acceptable")
+    private Boolean acceptable;
+
+    //    Example: WAUZZZ44ZEN096063
     @NotBlank
     @Size(min=17, max=17)
     @Column(name = "vin")

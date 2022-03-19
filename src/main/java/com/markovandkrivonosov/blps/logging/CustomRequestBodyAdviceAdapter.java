@@ -35,7 +35,7 @@ public class CustomRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter {
         if (httpServletRequest.getRequestURI().equals("/api/auth/signin") ||
                 httpServletRequest.getRequestURI().equals("/api/auth/signup")) {
             LoginRequestDto loginRequestDto = new LoginRequestDto();
-            loginRequestDto.setPhone(body.toString().substring(body.toString().indexOf("=") + 1, body.toString().indexOf(",")));
+            loginRequestDto.setEmail(body.toString().substring(body.toString().indexOf("=") + 1, body.toString().indexOf(",")));
             loginRequestDto.setPassword("******"); // It was the fastest solution ;)
             loggingService.logRequest(httpServletRequest, loginRequestDto);
         }

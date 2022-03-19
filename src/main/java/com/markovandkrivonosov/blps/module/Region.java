@@ -27,11 +27,11 @@ public class Region {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<City> cities;
 
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Advertisement> advertisements;
 

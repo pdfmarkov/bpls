@@ -62,7 +62,7 @@ public class AuthorizationController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequestDto loginRequestDto) {
 
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getPhone(), loginRequestDto.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -88,7 +88,7 @@ public class AuthorizationController {
                 .map(refreshTokenService::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(user -> {
-                    String token = jwtUtils.generateTokenFromUsername(user.getPhone());
+                    String token = jwtUtils.generateTokenFromUsername(user.getEmail());
                     return ResponseEntity.ok(new TokenRefreshResponseDto(token, requestRefreshToken));
                 })
                 .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
@@ -98,10 +98,10 @@ public class AuthorizationController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequestDto signUpRequest) {
 
-        if (userRepository.existsByPhone(signUpRequest.getPhone()))
+        if (userRepository.existsByEmail(signUpRequest.getEmail()))
             throw new ResourceIsAlreadyExistsException("Error: Phone is already taken!");
 
-        User user = new User(signUpRequest.getPhone(),
+        User user = new User(signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
         Set<String> strRoles = signUpRequest.getRole();

@@ -43,7 +43,7 @@ public class UserDetailsImpl implements UserDetails {
 
         return new UserDetailsImpl(
                 user.getId(),
-                user.getPhone(),
+                user.getEmail(),
                 user.getPassword(),
                 authorities);
     }

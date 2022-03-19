@@ -12,8 +12,7 @@ import java.util.Set;
 public class SignupRequestDto {
 
     @NotBlank
-    @Pattern(regexp="(^$|[0-9]{10})")
-    private String phone;
+    private String email;
 
     private Set<String> role;
 

@@ -25,12 +25,12 @@ public class Model {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "brand_id", referencedColumnName = "id")
     @JsonIgnore
     private Brand brand;
 
-    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "model", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Advertisement> advertisements;
 

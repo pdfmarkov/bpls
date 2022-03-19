@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +15,7 @@ import java.util.Set;
 @Setter
 @Table(name = "users",
         uniqueConstraints = {
-            @UniqueConstraint(columnNames = "phone")
+            @UniqueConstraint(columnNames = "email")
         })
 public class User{
 
@@ -26,9 +25,8 @@ public class User{
     private Long id;
 
     @NotBlank
-    @Pattern(regexp="(^$|[0-9]{10})")
-    @Column(name = "phone")
-    private String phone;
+    @Column(name = "email")
+    private String email;
 
     @NotBlank
     @Size(max = 120)
@@ -48,7 +46,7 @@ public class User{
     @ToString.Exclude
     private Set<Advertisement> advertisements = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "userroles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -56,8 +54,8 @@ public class User{
 
     public User() {}
 
-    public User(String phone, String password) {
-        this.phone = phone;
+    public User(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
